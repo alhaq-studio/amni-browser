@@ -1,9 +1,42 @@
-name: Build Package
-on: [workflow_dispatch]
+name: CI & Cross-Device Build
+
+on:
+  push:
+    branches:
+      - master
+      - main
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - master
+      - main
+  release:
+    types: [published]
+  workflow_dispatch:
+
 jobs:
+  test:
+    name: Lint & Test Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+      - run: npm install --omit=optional
+      - name: Lint code style
+        run: npm test
+      - name: Build main and renderer bundles
+        run: npm run build
+
   build:
+    name: Build Packages (${{ matrix.artifact }})
+    needs: test
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         include:
           - os: ubuntu-latest
@@ -14,6 +47,18 @@ jobs:
             cmd: npm run buildRedhat
             artifact: linux-rpm-package
             path: dist/app/*.rpm
+          - os: ubuntu-latest
+            cmd: npm run buildAppImage
+            artifact: linux-appimage-package
+            path: dist/app/*.AppImage
+          - os: ubuntu-latest
+            cmd: npm run buildLinuxArm64
+            artifact: linux-arm64-deb-package
+            path: dist/app/*.deb
+          - os: ubuntu-latest
+            cmd: npm run buildRaspi
+            artifact: linux-armhf-deb-package
+            path: dist/app/*.deb
           - os: windows-latest
             cmd: npm run buildWindows
             artifact: windows-package
@@ -35,15 +80,36 @@ jobs:
     env:
       SDKROOT: ${{ matrix.env.SDKROOT }}
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 25
-    - run: npm install --omit=optional
-    - name: build package
-      run: ${{ matrix.cmd }}
-    - name: upload package
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ matrix.artifact }}
-        path: ${{ matrix.path }}
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+      - run: npm install --omit=optional
+      - name: Build Package
+        run: ${{ matrix.cmd }}
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: ${{ matrix.path }}
+
+  release:
+    name: Attach Artifacts to Release
+    if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'release'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download all workflow artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-artifacts
+      - name: Publish Release Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release-artifacts/**/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
