@@ -1,113 +1,152 @@
-# Min
+<div align="center">
 
-Min is a fast, minimal browser that protects your privacy. It includes an interface designed to minimize distractions, and features such as:
+# Min Browser
 
-- Full-text search for visited pages
-- Ad and tracker blocking
-- Automatic reader view
-- Tasks (tab groups)
-- Bookmark tagging
-- Password manager integration
-- Dark theme
+<p align="center">
+  <b>A fast, minimal browser that protects your privacy.</b>
+</p>
 
-Download Min from the [releases page](https://github.com/minbrowser/min/releases), or learn more on the [website](https://minbrowser.org/).
-
+[![Build Status](https://github.com/minbrowser/min/actions/workflows/build-packages.yml/badge.svg)](https://github.com/minbrowser/min/actions/workflows/build-packages.yml)
+[![Latest Release](https://img.shields.io/github/v/release/minbrowser/min?include_prereleases&style=flat&color=blue)](https://github.com/minbrowser/min/releases)
 [![Downloads][DownloadsBadge]][DownloadsUrl]
+[![Node Version](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg)](https://nodejs.org/)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE.txt)
 [![Discord][DiscordBadge]][DiscordUrl]
 
-Min is made possible by these sponsors:
+</div>
 
-| [<img src="https://avatars.githubusercontent.com/u/6592155?v=4" width="40">](https://github.com/blackgwe) | [<img src="https://avatars.githubusercontent.com/u/49724477?v=4" width="40">](https://github.com/rafel-ioli) |[<img src="https://avatars.githubusercontent.com/u/237596?v=4" width="40">](https://github.com/idoru) |     |
-| ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |--------------------------------------------------------------------------------------------------------------- | --- |
-| [@blackgwe](https://github.com/blackgwe)                                                                            | [@rafel-ioli](https://github.com/rafel-ioli)                                                                        |[@idoru](https://github.com/idoru)                                                                        ||
+---
 
-[Become a sponsor](https://github.com/sponsors/PalmerAL)
+Min is a fast, lightweight browser designed to minimize distractions and protect your privacy. Built on Electron, Min features an uncluttered interface and powerful built-in tools.
+
+## Key Features
+
+- 🔍 **Full-text search**: Search through the content of pages you've visited.
+- 🛡️ **Ad and tracker blocking**: Block ads, trackers, and third-party scripts automatically.
+- 📖 **Automatic reader view**: Read articles without distractions, sidebars, or ads.
+- 📑 **Tasks (tab groups)**: Organize tabs into task groups for focused workflows.
+- 🏷️ **Bookmark tagging**: Easily tag and search your saved bookmarks.
+- 🔐 **Password manager integration**: Works with 1Password, Bitwarden, and built-in password storage.
+- 🌙 **Dark theme**: Automatically matches your system appearance or manual dark mode preferences.
+
+---
 
 ## Screenshots
 
+<div align="center">
+
 <img alt="The search bar, showing information from DuckDuckGo" src="http://minbrowser.org/tour/img/searchbar_duckduckgo_answers.png" width="650"/>
+
+<br/><br/>
 
 <img alt="The Tasks Overlay" src="http://minbrowser.org/tour/img/tasks.png" width="650"/>
 
+<br/><br/>
+
 <img alt="Reader View" src="https://user-images.githubusercontent.com/10314059/53312382-67ca7d80-387a-11e9-9ccc-88ac592c9b1c.png" width="650"/>
+
+</div>
+
+---
 
 ## Installing
 
-You can find prebuilt binaries for Min [here](https://github.com/minbrowser/min/releases). Alternatively, skip to the section below for instructions on how to build Min directly from source.
+You can download official prebuilt binaries for Linux, macOS, and Windows on the **[Releases Page](https://github.com/minbrowser/min/releases)**, or visit the [official website](https://minbrowser.org/).
 
-### Installation on Linux
+### Platform Instructions
 
-- To install the .deb file, use `sudo dpkg -i /path/to/download`
-- To install the RPM build, use `sudo rpm -i /path/to/download --ignoreos`
-- On Arch Linux install from [AUR](https://aur.archlinux.org/packages/min-browser-bin).
-- On Raspberry Pi, you can install Min from [Pi-Apps](https://github.com/Botspot/pi-apps).
+- **Linux (Debian/Ubuntu)**: `sudo dpkg -i /path/to/min_*.deb`
+- **Linux (RedHat/Fedora)**: `sudo rpm -i /path/to/min_*.rpm --ignoreos`
+- **Arch Linux**: Install via [AUR](https://aur.archlinux.org/packages/min-browser-bin).
+- **Raspberry Pi / ARM**: Available via [Pi-Apps](https://github.com/Botspot/pi-apps) or directly from [Releases](https://github.com/minbrowser/min/releases).
+- **macOS**: Download `.dmg` or `.zip`, move to `/Applications`.
+- **Windows**: Download setup `.exe` or portable `.zip`.
 
-## Getting Started
+---
 
-* The [wiki](https://github.com/minbrowser/min/wiki) provides an overview of the the features available in Min, a list of available keyboard shortcuts, and answers to some [frequently asked questions](https://github.com/minbrowser/min/wiki/FAQ).
-* Min supports installing userscripts to extend its functionality. See the [userscript documentation](https://github.com/minbrowser/min/wiki/userscripts) for instructions on writing userscripts, as well as a collection of scripts written by the community.
-* If you have questions about using Min, need help getting started with development, or want to talk about what we're working on, join our [Discord server](https://discord.gg/bRpqjJ4).
+## Quick Start for Developers
 
-## Developing
+To run Min locally from source code:
 
-If you want to develop Min:
+1. **Prerequisites**: Ensure [Node.js](https://nodejs.org) (v20 or higher) and `npm` are installed.
+2. **Clone repository**:
+   ```bash
+   git clone https://github.com/minbrowser/min.git
+   cd min
+   ```
+3. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+4. **Start application**:
+   ```bash
+   npm run start
+   ```
 
-- Install [Node](https://nodejs.org).
-- Run `npm install` to install dependencies.
-- Start Min in development mode by running `npm run start`.
-- After you make changes, press `alt+ctrl+r` (or `opt+cmd+r` on Mac) to reload the browser UI.
+> **Tip:** While running in development mode, press `Ctrl+Alt+R` (`Cmd+Opt+R` on macOS) to reload the UI.
 
-### Building binaries
+---
 
-In order to build Min from source, follow the installation instructions above, then use one of the following commands to create binaries:
+## Building Binaries (Cross-Device)
 
-- `npm run buildWindows`
-- `npm run buildMacIntel`
-- `npm run buildMacArm`
-- `npm run buildDebian`
-- `npm run buildRaspi` (for 32-bit Raspberry Pi)
-- `npm run buildLinuxArm64` (for 64-bit Raspberry Pi or other ARM Linux)
-- `npm run buildRedhat`
+Min includes scripts to build native packages for multiple operating systems and CPU architectures:
 
-Depending on the platform you are building for, you may need to install additional dependencies:
+| Platform / Architecture | Target Package | Build Command |
+| :--- | :--- | :--- |
+| **Windows (x64)** | Setup Installer (`.exe`) / Zip (`.zip`) | `npm run buildWindows` |
+| **macOS (Intel x86_64)** | Portable Zip (`.zip`) | `npm run buildMacIntel` |
+| **macOS (Apple Silicon Arm64)** | Portable Zip (`.zip`) | `npm run buildMacArm` |
+| **Linux (Debian / Ubuntu amd64)** | Debian Package (`.deb`) | `npm run buildDebian` |
+| **Linux (RedHat / Fedora x86_64)** | RPM Package (`.rpm`) | `npm run buildRedhat` |
+| **Linux (Universal AppImage)** | AppImage (`.AppImage`) | `npm run buildAppImage` |
+| **Linux (ARM64 / Raspberry Pi 64-bit)** | Debian Package (`.deb`) | `npm run buildLinuxArm64` |
+| **Linux (Raspberry Pi 32-bit)** | Debian Package (`.deb`) | `npm run buildRaspi` |
+| **Build All Packages** | All supported targets | `npm run buildAll` |
 
-- If you are building a macOS package, you'll need to install Xcode and the associated command-line tools. You may also need to set your default SDK to macOS 11.0 or higher, which you can do by running `export SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk`. The exact command will depend on where Xcode is installed and which SDK version you're using.
-- To build on Windows, you'll need to install Visual Studio. Once it's installed, you may also need to run `npm config set msvs_version 2019` (or the appropriate version).
+### System Prerequisites for Building
 
-## Contributing to Min
+- **macOS**: Requires Xcode and Command Line Tools. Set SDK root if needed:
+  ```bash
+  export SDKROOT=$(xcrun --sdk macosx --show-sdk-path)
+  ```
+- **Windows**: Requires Visual Studio with C++ Build Tools installed.
 
-Thanks for taking the time to contribute to Min!
+---
 
-### Getting Help
+## Getting Started & Resources
 
-If you're experiencing a bug or have a suggestion for how to improve Min, please open a [new issue](https://github.com/minbrowser/min/issues/new/choose).
+* **[Wiki Documentation](https://github.com/minbrowser/min/wiki)**: Feature guide, keyboard shortcuts, and [FAQ](https://github.com/minbrowser/min/wiki/FAQ).
+* **[Userscripts Guide](https://github.com/minbrowser/min/wiki/userscripts)**: Extend Min with custom userscripts.
+* **[Community Discord](https://discord.gg/bRpqjJ4)**: Join for support, discussions, and dev updates.
 
-### Contributing Code
+---
 
-- Start by following the development instructions listed above.
-- The wiki has an [overview of Min's architecture](https://github.com/minbrowser/min/wiki/Architecture).
-- Min uses the [Standard](https://github.com/feross/standard) code style; [most editors](https://standardjs.com/#are-there-text-editor-plugins) have plugins available to auto-format your code.
-- If you see something that's missing, or run into any problems, please open an issue!
+## Contributing
 
-### Contributing Translations
+We welcome contributions of all kinds!
 
-#### Adding a new language
+- **Report Bugs & Feedback**: Open an issue on [GitHub Issues](https://github.com/minbrowser/min/issues/new/choose).
+- **Architecture Overview**: Learn about Min's design in the [Wiki Architecture guide](https://github.com/minbrowser/min/wiki/Architecture).
+- **Code Style**: Min follows [Standard JS](https://github.com/standard/standard). Run `npm test` to lint your code before opening a pull request.
+- **Translations**: Translate Min into your language by adding or updating files in `localization/languages/`.
 
-- Find the language code that goes with your language from [this list](https://source.chromium.org/chromium/chromium/src/+/main:ui/base/l10n/l10n_util.cc;l=68-259) (line 68 - 259).
-- In the `localization/languages` directory, create a new file, and name it "[your language code].json".
-- Open your new file, and copy the contents of the <a href="https://github.com/minbrowser/min/blob/master/localization/languages/en-US.json">localization/languages/en-US.json</a> file into your new file.
-- Change the "identifier" field in the new file to the language code from step 1.
-- Inside the file, replace each English string in the right-hand column with the equivalent translation.
-- (Optional) See your translations live by following the [development instructions](#installing) above. Min will display in the same language as your operating system, so make sure your computer is set to the same language that you're translating.
-- That's it! Make a pull request with your changes.
+---
 
-#### Updating an existing language
+## Sponsors
 
-- Find the language file for your language in the `localization/languages` directory.
-- Look through the file for any items that have a value of "null", or that have a comment saying "missing translation".
-- For each of these items, look for the item with the same name in the `en-US.json` file.
-- Translate the value from the English file, replace "null" with your translation, and remove the "missing translation" comment.
-- Make a pull request with the updated file.
+Min is made possible by these sponsors:
+
+| [<img src="https://avatars.githubusercontent.com/u/6592155?v=4" width="40">](https://github.com/blackgwe) | [<img src="https://avatars.githubusercontent.com/u/49724477?v=4" width="40">](https://github.com/rafel-ioli) | [<img src="https://avatars.githubusercontent.com/u/237596?v=4" width="40">](https://github.com/idoru) |
+| :--- | :--- | :--- |
+| [@blackgwe](https://github.com/blackgwe) | [@rafel-ioli](https://github.com/rafel-ioli) | [@idoru](https://github.com/idoru) |
+
+[Become a sponsor](https://github.com/sponsors/PalmerAL)
+
+---
+
+## License
+
+Min is open source software licensed under the [Apache-2.0 License](LICENSE.txt).
 
 [DiscordBadge]: https://img.shields.io/discord/764269005195968512.svg?label=Discord&logo=discord&logoColor=white
 [DiscordUrl]: https://discord.gg/bRpqjJ4
